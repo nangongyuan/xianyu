@@ -1,0 +1,423 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+	<title>校内闲鱼-首页</title>
+	<link rel=stylesheet type=text/css href="css/hc_lnav.css">
+	<link rel="stylesheet" type="text/css" href="css/reset.css">
+	<link rel="stylesheet" type="text/css" href="css/main.css">
+	<link rel="stylesheet" type="text/css" href="css/chat.css" />
+
+
+</head>
+<body>
+				<div id="proSchool" class="provinceSchool" style="z-index:99999;background-color:white">
+						<div class="title"><span>请选择学校</span></div>
+						<div class="proSelect">
+							<select></select>
+							<!--<span>如没找到选择项，请选择其他手动填写</span>-->
+							<input type="text" />
+						</div>
+						<div class="schoolList">
+							<ul></ul>
+						</div>
+						<div class="button">
+							<button flag='0'>取消</button>
+							<button flag='1'>确定</button>
+						</div>
+				</div>	
+
+	<div class="header_con">
+		<div class="header">
+			<div class="welcome fl"><a id="school" th:text="${collect.name}">宁波工程学院</a></div>
+			<div class="fr">
+				<div class="login_btn fl" th:if="${loginUser} == null">
+					<a href="/login">登录</a>
+					<span>|</span>
+					<a href="/register">注册</a>
+				</div>
+				<div class="login_btn fl" th:if="${loginUser} != null">
+					<a href="" th:text="${loginUser.username}">登录</a>
+					<span>|</span>
+					<a href="/user/logout">注销</a>
+				</div>
+				<div class="user_link fl" th:if="${loginUser} != null">
+					<span>|</span>
+					<a href="/my_info">用户中心</a>
+					<span>|</span>
+					<a href="/my_collect">我的收藏</a>
+					<span>|</span>
+					<a href="/my_order">我的订单</a>
+				</div>
+			</div>
+		</div>		
+	</div>
+
+	<div class="search_bar clearfix">
+		<a href="/" class="logo fl"><img src="images/logo.png"></a>
+		<div class="search_con fl">
+			<input type="text" class="input_text fl" name="" placeholder="搜索商品" id="search_content">
+			<input type="button" class="input_btn fr" name="" value="搜索" id="btn_search">
+		</div>
+		<div class="guest_cart fr">
+			<a href="/issue" class="cart_name fl" th:if="${loginUser} != null">发布闲置</a>
+		</div>
+	</div>
+
+
+
+
+
+	<!--分类和滚动-->
+	<div class="center_con clearfix">
+		<!--分类导航-->
+			<div class="hc_lnav jslist" style="display:inline-block;">
+					<div class="allbtn" >
+						<h2><a href="#"><strong>&nbsp;</strong>全部商品分类<i>&nbsp;</i></a></h2>
+						
+						<ul style="width:190px" class="jspop box">
+							<li class="a1" th:each="item1:${model.categoryList}">
+								<div class="tx"><a th:href="@{'/list?categoryId='+${item1.id}+'&pageNum=0&pageSize=15&order=0'}" th:text="${item1.name}"><i>&nbsp;</i>闲置数码</a> </div>
+								<dl>
+										<dt>推荐</dt>
+									<dd >
+										<a th:each="item2:${item1.categoryListVoList}" th:text="${item2.name}"
+										   th:href="@{'/list?categoryId='+${item2.id}+'&pageNum=0&pageSize=15&order=0'}">西湖井</a>
+									</dd>
+								</dl>
+								<div class="pop">
+									<dl>
+										<dl th:each="item4:${item1.categoryListVoList}">
+											<dt th:text="${item4.name}">绿茶</dt>
+											<dd>
+												<a class="ui-link" th:each="item5:${item4.categoryListVoList}" th:text="${item5.name}"
+												   th:href="@{'/list?categoryId='+${item5.id}+'&pageNum=0&pageSize=15&order=0'}">西湖龙井</a>
+											</dd>
+										</dl>
+									</dl>
+									<div class="clr"></div>
+								</div>
+							</li>
+						</ul>
+					</div>
+					
+				</div>
+		
+				<div style="display:inline-block;width: 200px"><ul class="navlist fl">
+						<li><a href="/">首页</a></li>
+						<li class="interval">|</li>
+						<li><a href="/list?categoryId=6&pageNum=0&pageSize=15&order=0">手机</a></li>
+						<li class="interval">|</li>
+						<li><a href="/list?categoryId=8&pageNum=0&pageSize=15&order=0">电脑</a></li>
+					</ul></div>
+		<!--滚动-->
+		<div class="slide fl">
+			<ul class="slide_pics">
+				<li><img src="images/slide.png" alt="幻灯片"></li>
+				<li><img src="images/slide02.png" alt="幻灯片"></li>
+				<li><img src="images/slide03.png" alt="幻灯片"></li>
+				<li><img src="images/slide04.png" alt="幻灯片"></li>
+			</ul>
+			<div class="prev"></div>
+			<div class="next"></div>
+			<ul class="points"></ul>
+		</div>
+	</div>
+
+	<!--分类产品-->
+	<div class="list_model">
+		<div class="list_title clearfix">
+			<h3 class="fl" id="model01">闲置数码</h3>
+			<div class="subtitle fl">
+				<span>|</span>
+				<a href="/list?categoryId=6&pageNum=0&pageSize=15&order=0">手机</a>
+				<a href="/list?categoryId=7&pageNum=0&pageSize=15&order=0">相机</a>
+				<a href="/list?categoryId=8&pageNum=0&pageSize=15&order=0">电脑</a>
+			</div>
+			<a href="/list?categoryId=1&pageNum=0&pageSize=15&order=0" class="goods_more fr" id="fruit_more">查看更多 ></a>
+		</div>
+
+		<div class="goods_con clearfix">
+			<!-- <div class="goods_banner fl"><img src="images/banner01.jpg"></div> -->
+			<ul class="goods_list fl">
+				<li th:each="item:${digital.content}">
+					<h4><a th:href="@{'/detail?productId='+${item.id}}"
+						   th:text="${#strings.length(item.name) > 30 ? #strings.substring(item.name,0,30)+'...' : item.name}">[转卖]7耳机转接头</a></h4>
+					<a th:href="@{'/detail?productId='+${item.id}}"><img src="images/goods/vivo-1.jpg" th:attr="src=${item.mainImage}"></a>
+					<div class="prize" th:text="￥+${item.price}">¥ 30.00</div>
+				</li>
+			</ul>
+		</div>
+	</div>
+
+	<div class="list_model">
+		<div class="list_title clearfix">
+			<h3 class="fl" id="model02">闲置书籍</h3>
+			<div class="subtitle fl">
+				<span>|</span>
+				<a href="/list?categoryId=35&pageNum=0&pageSize=15&order=0">小说</a>
+				<a href="/list?categoryId=44&pageNum=0&pageSize=15&order=0">文字</a>
+			</div>
+			<a href="/list?categoryId=2&pageNum=0&pageSize=15&order=0" class="goods_more fr">查看更多 ></a>
+		</div>
+		<div class="goods_con clearfix">
+			<!-- <div class="goods_banner fl"><img src="images/banner01.jpg"></div> -->
+			<ul class="goods_list fl">
+				<li th:each="item:${books.content}">
+					<h4><a th:href="@{'/detail?productId='+${item.id}}" th:text="${#strings.length(item.name) > 30 ? #strings.substring(item.name,0,30)+'...' : item.name}">[转卖]7耳机转接头</a></h4>
+					<a th:href="@{'/detail?productId='+${item.id}}"><img src="images/goods/vivo-1.jpg" th:attr="src=${item.mainImage}"></a>
+					<div class="prize" th:text="￥+${item.price}">¥ 30.00</div>
+				</li>
+			</ul>
+		</div>
+	</div>
+
+	<div class="list_model">
+		<div class="list_title clearfix">
+			<h3 class="fl" id="model03">闲置零食</h3>
+			<div class="subtitle fl">
+				<span>|</span>
+				<a href="/list?categoryId=86&pageNum=0&pageSize=15&order=0">土特产</a>
+				<a href="/list?categoryId=75&pageNum=0&pageSize=15&order=0">饼干</a>
+				<a href="/list?categoryId=64&pageNum=0&pageSize=15&order=0">饮料</a>
+			</div>
+			<a href="/list?categoryId=3&pageNum=0&pageSize=15&order=0" class="goods_more fr">查看更多 ></a>
+		</div>
+
+		<div class="goods_con clearfix">
+			<!-- <div class="goods_banner fl"><img src="images/banner01.jpg"></div> -->
+			<ul class="goods_list fl">
+				<li th:each="item:${snacks.content}">
+					<h4><a th:href="@{'/detail?productId='+${item.id}}" th:text="${#strings.length(item.name) > 30 ? #strings.substring(item.name,0,30)+'...' : item.name}">[转卖]7耳机转接头</a></h4>
+					<a th:href="@{'/detail?productId='+${item.id}}"><img src="images/goods/vivo-1.jpg" th:attr="src=${item.mainImage}"></a>
+					<div class="prize" th:text="￥+${item.price}">¥ 30.00</div>
+				</li>
+			</ul>
+		</div>
+	</div>
+
+	<div class="list_model">
+		<div class="list_title clearfix">
+			<h3 class="fl" id="model04">闲置日用</h3>
+			<div class="subtitle fl">
+				<span>|</span>
+				<a href="/list?categoryId=92&pageNum=0&pageSize=15&order=0">寝室用品</a>
+				<a href="/list?categoryId=98&pageNum=0&pageSize=15&order=0">生活用品</a>
+			</div>
+			<a href="/list?categoryId=4&pageNum=0&pageSize=15&order=0" class="goods_more fr">查看更多 ></a>
+		</div>
+
+		<div class="goods_con clearfix">
+			<!-- <div class="goods_banner fl"><img src="images/banner01.jpg"></div> -->
+			<ul class="goods_list fl">
+				<li th:each="item:${daily.content}">
+					<h4><a th:href="@{'/detail?productId='+${item.id}}" th:text="${#strings.length(item.name) > 30 ? #strings.substring(item.name,0,30)+'...' : item.name}">[转卖]7耳机转接头</a></h4>
+					<a th:href="@{'/detail?productId='+${item.id}}"><img src="images/goods/vivo-1.jpg" th:attr="src=${item.mainImage}"></a>
+					<div class="prize" th:text="￥+${item.price}">¥ 30.00</div>
+				</li>
+			</ul>
+		</div>
+	</div>
+
+	<div class="list_model">
+		<div class="list_title clearfix">
+			<h3 class="fl" id="model05">闲置服饰</h3>
+			<div class="subtitle fl">
+				<span>|</span>
+				<a href="/list?categoryId=104&pageNum=0&pageSize=15&order=0">男装</a>
+				<a href="/list?categoryId=111&pageNum=0&pageSize=15&order=0">女装</a>
+			</div>
+			<a href="/list?categoryId=5&pageNum=0&pageSize=15&order=0" class="goods_more fr">查看更多 ></a>
+		</div>
+
+		<div class="goods_con clearfix">
+			<!-- <div class="goods_banner fl"><img src="images/banner01.jpg"></div> -->
+			<ul class="goods_list fl">
+				<li th:each="item:${clothes.content}">
+					<h4><a th:href="@{'/detail?productId='+${item.id}}" th:text="${#strings.length(item.name) >30 ? #strings.substring(item.name,0,30)+'...' : item.name}">[转卖]7耳机转接头</a></h4>
+					<a th:href="@{'/detail?productId='+${item.id}}"><img src="images/goods/vivo-1.jpg" th:attr="src=${item.mainImage}"></a>
+					<div class="prize" th:text="￥+${item.price}">¥ 30.00</div>
+				</li>
+			</ul>
+		</div>
+	</div>
+
+				<div id="chat_box" class="chat_Box" style="display:none;">
+					<div class="chatLeft">
+						<div class="chat01" style="margin-top:-12px">
+							<div class="chat01_title">
+								<ul class="talkTo">
+									<li><a href="javascript:;"   id="show_chater">卖家</a></li></ul>
+								<a class="close_btn" href="javascript:;"></a>
+							</div>
+							<div class="chat01_content" style="background: #FFFFFF;">
+								<div class="message_box mes1">
+								</div>
+								<div class="message_box mes2">
+								</div>
+								<div class="message_box mes3" style="display: block;">
+								</div>
+								<div class="message_box mes4">
+								</div>
+								<div class="message_box mes5">
+								</div>
+								<div class="message_box mes6">
+								</div>
+								<div class="message_box mes7">
+								</div>
+								<div class="message_box mes8">
+								</div>
+								<div class="message_box mes9">
+								</div>
+								<div class="message_box mes10">
+								</div>
+							</div>
+						</div>
+						<div class="chat02">
+							<div class="chat02_title">
+								<a class="chat02_title_btn ctb01" href="javascript:;"></a>
+
+								<div class="wl_faces_box">
+									<div class="wl_faces_content">
+										<div class="title">
+											<ul>
+												<li class="title_name">常用表情</li><li class="wl_faces_close"><span>&nbsp;</span></li></ul>
+										</div>
+										<div class="wl_faces_main">
+											<ul>
+												<li><a href="javascript:;">
+													<img src="images/emo_01.gif" /></a></li><li><a href="javascript:;">
+												<img src="images/emo_02.gif" /></a></li><li><a href="javascript:;">
+												<img src="images/emo_03.gif" /></a></li>
+												<li><a href="javascript:;">
+													<img src="images/emo_04.gif" /></a></li><li><a href="javascript:;">
+												<img src="images/emo_05.gif" /></a></li><li><a href="javascript:;">
+												<img src="images/emo_06.gif" /></a></li>
+												<li><a href="javascript:;">
+													<img src="images/emo_07.gif" /></a></li><li><a href="javascript:;">
+												<img src="images/emo_08.gif" /></a></li><li><a href="javascript:;">
+												<img src="images/emo_09.gif" /></a></li>
+												<li><a href="javascript:;">
+													<img src="images/emo_10.gif" /></a></li><li><a href="javascript:;">
+												<img src="images/emo_11.gif" /></a></li><li><a href="javascript:;">
+												<img src="images/emo_12.gif" /></a></li>
+												<li><a href="javascript:;">
+													<img src="images/emo_13.gif" /></a></li><li><a href="javascript:;">
+												<img src="images/emo_14.gif" /></a></li><li><a href="javascript:;">
+												<img src="images/emo_15.gif" /></a></li>
+												<li><a href="javascript:;">
+													<img src="images/emo_16.gif" /></a></li><li><a href="javascript:;">
+												<img src="images/emo_17.gif" /></a></li><li><a href="javascript:;">
+												<img src="images/emo_18.gif" /></a></li>
+												<li><a href="javascript:;">
+													<img src="images/emo_19.gif" /></a></li><li><a href="javascript:;">
+												<img src="images/emo_20.gif" /></a></li><li><a href="javascript:;">
+												<img src="images/emo_21.gif" /></a></li>
+												<li><a href="javascript:;">
+													<img src="images/emo_22.gif" /></a></li><li><a href="javascript:;">
+												<img src="images/emo_23.gif" /></a></li><li><a href="javascript:;">
+												<img src="images/emo_24.gif" /></a></li>
+												<li><a href="javascript:;">
+													<img src="images/emo_25.gif" /></a></li><li><a href="javascript:;">
+												<img src="images/emo_26.gif" /></a></li><li><a href="javascript:;">
+												<img src="images/emo_27.gif" /></a></li>
+												<li><a href="javascript:;">
+													<img src="images/emo_28.gif" /></a></li><li><a href="javascript:;">
+												<img src="images/emo_29.gif" /></a></li><li><a href="javascript:;">
+												<img src="images/emo_30.gif" /></a></li>
+												<li><a href="javascript:;">
+													<img src="images/emo_31.gif" /></a></li><li><a href="javascript:;">
+												<img src="images/emo_32.gif" /></a></li><li><a href="javascript:;">
+												<img src="images/emo_33.gif" /></a></li>
+												<li><a href="javascript:;">
+													<img src="images/emo_34.gif" /></a></li><li><a href="javascript:;">
+												<img src="images/emo_35.gif" /></a></li><li><a href="javascript:;">
+												<img src="images/emo_36.gif" /></a></li>
+												<li><a href="javascript:;">
+													<img src="images/emo_37.gif" /></a></li><li><a href="javascript:;">
+												<img src="images/emo_38.gif" /></a></li><li><a href="javascript:;">
+												<img src="images/emo_39.gif" /></a></li>
+												<li><a href="javascript:;">
+													<img src="images/emo_40.gif" /></a></li><li><a href="javascript:;">
+												<img src="images/emo_41.gif" /></a></li><li><a href="javascript:;">
+												<img src="images/emo_42.gif" /></a></li>
+												<li><a href="javascript:;">
+													<img src="images/emo_43.gif" /></a></li><li><a href="javascript:;">
+												<img src="images/emo_44.gif" /></a></li><li><a href="javascript:;">
+												<img src="images/emo_45.gif" /></a></li>
+												<li><a href="javascript:;">
+													<img src="images/emo_46.gif" /></a></li><li><a href="javascript:;">
+												<img src="images/emo_47.gif" /></a></li><li><a href="javascript:;">
+												<img src="images/emo_48.gif" /></a></li>
+												<li><a href="javascript:;">
+													<img src="images/emo_49.gif" /></a></li><li><a href="javascript:;">
+												<img src="images/emo_50.gif" /></a></li><li><a href="javascript:;">
+												<img src="images/emo_51.gif" /></a></li>
+												<li><a href="javascript:;">
+													<img src="images/emo_52.gif" /></a></li><li><a href="javascript:;">
+												<img src="images/emo_53.gif" /></a></li><li><a href="javascript:;">
+												<img src="images/emo_54.gif" /></a></li>
+												<li><a href="javascript:;">
+													<img src="images/emo_55.gif" /></a></li><li><a href="javascript:;">
+												<img src="images/emo_56.gif" /></a></li><li><a href="javascript:;">
+												<img src="images/emo_57.gif" /></a></li>
+												<li><a href="javascript:;">
+													<img src="images/emo_58.gif" /></a></li><li><a href="javascript:;">
+												<img src="images/emo_59.gif" /></a></li><li><a href="javascript:;">
+												<img src="images/emo_60.gif" /></a></li>
+											</ul>
+										</div>
+									</div>
+									<div class="wlf_icon">
+									</div>
+								</div>
+							</div>
+							<div class="chat02_content">
+								<textarea id="textarea"></textarea>
+							</div>
+							<div class="chat02_bar">
+								<ul>
+									<li style="right: 5px; top: 5px;"><a href="javascript:;">
+										<img src="images/send_btn.jpg"></a></li>
+								</ul>
+							</div>
+						</div>
+					</div>
+
+					<div style="clear: both;">
+					</div>
+				</div>
+
+	<div class="footer">
+		<div class="foot_link">
+			<a href="#">关于我们</a>
+			<span>|</span>
+			<a href="#">联系我们</a>
+			<span>|</span>
+			<a href="#">招聘人才</a>
+			<span>|</span>
+			<a href="#">友情链接</a>		
+		</div>
+        <p>CopyRight © 2018 校内闲鱼信息技术有限公司 All Rights Reserved</p>
+		<p>电话：010-****888    京ICP备*******8号</p>
+	</div>
+
+
+</body>
+<script type="text/javascript" src="js/jquery-1.12.4.min.js"></script>
+<script type="text/javascript" src="js/jquery-ui.min.js"></script>
+<script type="text/javascript" src="js/school.js"></script>
+<script type="text/javascript" src="js/slide.js"></script>
+<script type="text/javascript" src="js/chat.js"></script>
+<script type="text/javascript">
+    $(function () {
+        $('#btn_search').click(function () {
+            var word = $('#search_content').val();
+            window.location.href="/search?word="+word+"&order=0&pageNum=0&pageSize=15";
+        })
+    })
+</script>
+<script th:if="${loginUser} != null" type="text/javascript">
+    init_websocket();
+</script>
+</html>

@@ -1,0 +1,192 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+	<title>校内闲鱼-用户中心</title>
+	<link rel="stylesheet" href="css/style.css" />
+	<link rel="stylesheet" type="text/css" href="css/reset.css">
+	<link rel="stylesheet" type="text/css" href="css/main.css">
+	<link rel="stylesheet" type="text/css" href="css/awesomplete.css">
+	<link rel="stylesheet" type="text/css" href="css/jquery.dialogbox.css"/>
+</head>
+<body>
+	<div class="header_con">
+		<div class="header">
+			<div class="welcome fl">欢迎来到校内闲鱼!</div>
+			<div class="fr">
+				<div class="login_btn fl" th:if="${loginUser} == null">
+					<a href="/login">登录</a>
+					<span>|</span>
+					<a href="/register">注册</a>
+				</div>
+				<div class="login_btn fl" th:if="${loginUser} != null">
+					<a href="" th:text="${loginUser.username}">登录</a>
+					<span>|</span>
+					<a href="/user/logout">注销</a>
+				</div>
+				<div class="user_link fl" th:if="${loginUser} != null">
+					<span>|</span>
+					<a href="/my_info">用户中心</a>
+					<span>|</span>
+					<a href="/my_collect">我的收藏</a>
+					<span>|</span>
+					<a href="/my_order">我的订单</a>
+				</div>
+			</div>
+		</div>		
+	</div>
+
+	<div class="search_bar clearfix">
+		<a href="/" class="logo fl"><img src="images/logo.png"></a>
+		<div class="sub_page_name fl">|&nbsp;&nbsp;&nbsp;&nbsp;用户中心</div>
+		<div class="search_con fr">
+			<input type="text" class="input_text fl" name="" placeholder="搜索商品" id="search_content">
+			<input type="button" class="input_btn fr" name="" value="搜索" id="btn_search">
+		</div>		
+	</div>
+
+	<div class="main_con clearfix">
+		<div class="left_menu_con clearfix">
+			<h3>用户中心</h3>
+			<ul>
+				<li><a href="/my_info"  >· 个人信息</a></li>
+				<li><a href="/my_product"  class="active">· 我的商品</a></li>
+				<li><a href="/my_order">· 全部订单</a></li>
+				<li><a href="/my_collect">· 我的收藏</a></li>
+			</ul>
+		</div>
+		<div class="right_content clearfix">
+			<h3 class="common_title2">我的收藏</h3>
+			<div id="content_box" class="clearfix">
+				<div class="imfor_top">
+					<div class="check_top">
+						商品ID
+					</div>
+					<div class="pudc_top">商品</div>
+					<div class="pices_top">售价</div>
+					<div class="del_top">状态</div>
+				</div>
+				<div class="imfor" style="width: 680px;" th:each="item:${page.content}">
+					<div class="check" th:text="${item.id}">
+						2
+					</div>
+					<div class="pudc" ><img th:attr="src=${item.mainImage}" style="width: 80px;height: 60px;margin-top: 10px;margin-left: 40px;float: left;"/>
+						<span><a th:text="${#strings.length(item.name) > 20 ? #strings.substring(item.name,0,20)+'...' : item.name}"
+								 th:href="@{'/detail?productId='+${item.id}}"></a></span>
+					</div>
+					<div class="pices" th:text="${item.price}">5999.8</div>
+					<div class="del" >
+						<select style="margin-top: 30px;" th:tag="${item.id}" class="product_status">
+							<option  th:selected="${item.status eq 1}" value ="1">上架</option>
+							<option th:selected="${item.status eq 2}" value ="2">下架</option>
+							<option  th:selected="${item.status eq 3}" value="3">已出售</option>
+						</select>
+					</div>
+				</div>
+	
+			
+			</div>
+
+			<div class="pagenation">
+				<a th:href="@{'/my_product?pageNum='+${page.number==0 ? 0 : page.number-1}+'&pageSize=10'}"><上一页</a>
+				<a href="#"  th:text="${page.number+1}" class="active">1</a>
+				<a th:href="@{'/my_product?pageNum='+${page.number==page.totalPages-1 ? page.number : page.number+1}+'&pageSize=10'}">下一页></a>
+			</div>
+
+	
+	</div>
+	</div>
+
+
+	<div class="username_awesomplete" style="display: none">
+		<p style="font-size: 14px;font-weight: bold;color: #666666;margin-left: 60px;margin-top: 10px;">请输入该商品的买家</p>
+		<input class="awesomplete" th:data-list="${userList}" id="input_username"
+			   data-list="Ada, 南宫封清, JavaScript, Brainfuck, LOLCODE, Node.js, Ruby on Rails"
+			   aria-autocomplete="list">
+		<button type="button" value="确定" style="margin-left: 110px;" id="btn_username">确定</button>
+		<ul hidden="">
+		</ul>
+	</div>
+
+
+	<div class="footer">
+		<div class="foot_link">
+			<a href="#">关于我们</a>
+			<span>|</span>
+			<a href="#">联系我们</a>
+			<span>|</span>
+			<a href="#">招聘人才</a>
+			<span>|</span>
+			<a href="#">友情链接</a>		
+		</div>
+		<p>CopyRight © 2018 校内闲鱼信息技术有限公司 All Rights Reserved</p>
+		<p>电话：010-****888    京ICP备*******8号</p>
+	</div>
+	<div id="stantard-dialogBox"></div>
+	<script type="text/javascript" src="scripts/jquery.min.js"></script>
+	<script type="text/javascript" src="js/awesomplete.min.js"></script>
+	<script src="js/jquery.dialogBox.js"></script>
+	<script type="text/javascript">
+        var productId;
+        $(function () {
+            $("#btn_username").click(function () {
+				var username = $('#input_username').val();
+                $.ajax({
+                    url:'/order/save',
+                    type:'POST', //GET
+                    async:true,    //或false,是否异步
+                    data:{
+                        username:username,
+                        productId:productId
+                    },
+                    timeout:5000,    //超时时间
+                    dataType:'json',    //返回的数据格式：json/xml/html/script/jsonp/text
+                    success:function(data,textStatus,jqXHR){
+                        if (data.status == 0){
+                            $('.username_awesomplete').hide();
+						}else{
+                            $('#stantard-dialogBox').dialogBox({
+                                title: '校内闲鱼',
+                                hasClose: true,
+                                content: data.msg
+                            });
+						}
+                    },
+                })
+            });
+            $(".product_status").change(function () {
+                productId= $(this).attr("tag");
+                var status = $(this).val();
+                if (status == 3){
+                    $('.username_awesomplete').show();
+				}
+                $.ajax({
+                    url:'/product/status_update',
+                    type:'POST', //GET
+                    async:true,    //或false,是否异步
+                    data:{
+                        productStatus:status,
+                        productId:productId
+                    },
+                    timeout:5000,    //超时时间
+                    dataType:'json',    //返回的数据格式：json/xml/html/script/jsonp/text
+                    success:function(data,textStatus,jqXHR){
+                        if ( status != 3) {
+                            window.location.reload();
+						}
+                    },
+                })
+            })
+        })
+
+	</script>
+	<script type="text/javascript">
+        $(function () {
+            $('#btn_search').click(function () {
+                var word = $('#search_content').val();
+                window.location.href="/search?word="+word+"&order=0&pageNum=0&pageSize=15";
+            })
+        })
+	</script>
+</body>
+</html>

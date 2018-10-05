@@ -1,0 +1,156 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+	<title>校内闲鱼-用户中心</title>
+	<link rel="stylesheet" href="css/style.css" />
+	<link rel="stylesheet" type="text/css" href="css/reset.css">
+	<link rel="stylesheet" type="text/css" href="css/main.css">
+</head>
+<body>
+	<div class="header_con">
+		<div class="header">
+			<div class="welcome fl">欢迎来到校内闲鱼!</div>
+			<div class="fr">
+				<div class="login_btn fl" th:if="${loginUser} == null">
+					<a href="/login">登录</a>
+					<span>|</span>
+					<a href="/register">注册</a>
+				</div>
+				<div class="login_btn fl" th:if="${loginUser} != null">
+					<a href="" th:text="${loginUser.username}">登录</a>
+					<span>|</span>
+					<a href="/user/logout">注销</a>
+				</div>
+				<div class="user_link fl" th:if="${loginUser} != null">
+					<span>|</span>
+					<a href="/my_info">用户中心</a>
+					<span>|</span>
+					<a href="/my_collect">我的收藏</a>
+					<span>|</span>
+					<a href="/my_order">我的订单</a>
+				</div>
+			</div>
+		</div>		
+	</div>
+
+	<div class="search_bar clearfix">
+		<a href="/" class="logo fl"><img src="images/logo.png"></a>
+		<div class="sub_page_name fl">|&nbsp;&nbsp;&nbsp;&nbsp;用户中心</div>
+		<div class="search_con fr">
+			<input type="text" class="input_text fl" name="" placeholder="搜索商品" id="search_content">
+			<input type="button" class="input_btn fr" name="" value="搜索" id="btn_search">
+		</div>		
+	</div>
+
+	<div class="main_con clearfix">
+		<div class="left_menu_con clearfix">
+			<h3>用户中心</h3>
+			<ul>
+                <li><a href="/my_info"  >· 个人信息</a></li>
+                <li><a href="/my_product">· 我的商品</a></li>
+                <li><a href="/my_order" class="active">· 全部订单</a></li>
+                <li><a href="/my_collect">· 我的收藏</a></li>
+			</ul>
+		</div>
+		<div class="right_content clearfix">
+				<h3 class="common_title2">全部订单</h3>
+
+				<div id="content_box" class="clearfix">
+					<div class="imfor_top">
+						<div class="check_top">
+							订单ID
+						</div>
+						<div class="pudc_top">商品</div>
+						<div class="pices_top">售价</div>
+						<div class="num_top">买家</div>
+						<div class="totle_top">卖家</div>
+						<div class="del_top">给对方的评分</div>
+					</div>
+					<div class="imfor" th:each="item : ${page.content}">
+						<div class="check" th:text="${item.orderId}">
+							2
+						</div>
+						<div class="pudc" ><img th:attr="src=${item.product.mainImage}" style="width: 80px;height: 60px;margin-top: 10px;margin-left: 40px;float: left;"/>
+							<span >
+									<a th:text="${#strings.length(item.product.name) > 20 ? #strings.substring(item.product.name,0,20)+'...' : item.product.name}"
+									   th:href="@{'/detail?productId='+${item.product.id}}"></a>
+								</span>
+						</div>
+						<div class="pices" th:text="${item.product.price}">5999.8</div>
+						<div class="pices" th:text="${item.buyer}">admin</div>
+						<div class="pices" th:text="${item.seller}">admin</div>
+						<div class="del">
+							<select style="margin-top: 30px;"  class="product_status" th:tag="${item.orderId}">
+								<option   th:selected="${item.grade eq 1}" value ="1">1</option>
+								<option  th:selected="${item.grade eq 2}" value ="2">2</option>
+								<option   th:selected="${item.grade eq 3}" value="3">3</option>
+								<option   th:selected="${item.grade eq 4}" value="3">4</option>
+								<option   th:selected="${item.grade eq 5}" value="3">5</option>
+							</select>
+						</div>
+					</div>
+		
+
+				</div>
+
+			<div class="pagenation">
+				<a th:href="@{'/my_order?pageNum='+${page.number==0 ? 0 : page.number-1}+'&pageSize=10'}"><上一页</a>
+				<a href="#"  th:text="${page.number+1}" class="active">1</a>
+				<a th:href="@{'/my_order?pageNum='+${page.number==page.totalPages-1 ? page.number : page.number+1}+'&pageSize=10'}">下一页></a>
+			</div>
+
+		
+		</div>
+
+	
+	</div>
+
+
+
+	<div class="footer">
+		<div class="foot_link">
+			<a href="#">关于我们</a>
+			<span>|</span>
+			<a href="#">联系我们</a>
+			<span>|</span>
+			<a href="#">招聘人才</a>
+			<span>|</span>
+			<a href="#">友情链接</a>		
+		</div>
+        <p>CopyRight © 2018 校内闲鱼信息技术有限公司 All Rights Reserved</p>
+		<p>电话：010-****888    京ICP备*******8号</p>
+	</div>
+	<script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
+
+	<script type="text/javascript">
+        $(function () {
+            $('#btn_search').click(function () {
+                var word = $('#search_content').val();
+                window.location.href="/search?word="+word+"&order=0&pageNum=0&pageSize=15";
+            })
+        })
+
+        $(".product_status").change(function () {
+            var order_id= $(this).attr("tag");
+            var score = $(this).val();
+            $.ajax({
+                url:'/product/status_update',
+                type:'POST', //GET
+                async:true,    //或false,是否异步
+                data:{
+                    orderId:order_id,
+                    score:score
+                },
+                timeout:5000,    //超时时间
+                dataType:'json',    //返回的数据格式：json/xml/html/script/jsonp/text
+                success:function(data,textStatus,jqXHR){
+					window.location.reload();
+                },
+            })
+        })
+
+	</script>
+
+</body>
+</html>

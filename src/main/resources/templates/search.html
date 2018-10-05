@@ -1,0 +1,203 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+	<title>校内闲鱼-搜索</title>
+	<link rel=stylesheet type=text/css href="css/hc_lnav2.css">
+	<link rel="stylesheet" type="text/css" href="css/reset.css">
+	<link rel="stylesheet" type="text/css" href="css/main.css">
+	<link rel="stylesheet" type="text/css" href="css/jquery.dialogbox.css">
+</head>
+<body>
+<div class="header_con">
+	<div class="header">
+		<div class="welcome fl">欢迎来到校内闲鱼!</div>
+		<div class="fr">
+			<div class="login_btn fl" th:if="${loginUser} == null">
+				<a href="/login">登录</a>
+				<span>|</span>
+				<a href="/register">注册</a>
+			</div>
+			<div class="login_btn fl" th:if="${loginUser} != null">
+				<a href="" th:text="${loginUser.username}">登录</a>
+				<span>|</span>
+				<a href="/user/logout">注销</a>
+			</div>
+			<div class="user_link fl" th:if="${loginUser} != null">
+				<span>|</span>
+				<a href="/my_info">用户中心</a>
+				<span>|</span>
+				<a href="/my_collect">我的收藏</a>
+				<span>|</span>
+				<a href="/my_order">我的订单</a>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="search_bar clearfix">
+	<a href="/" class="logo fl"><img src="images/logo.png"></a>
+	<div class="search_con fl">
+		<input type="text" class="input_text fl" name="" placeholder="搜索商品" id="search_content">
+		<input type="button" class="input_btn fr" name="" value="搜索" id="btn_search">
+	</div>
+	<div class="guest_cart fr" th:if="${loginUser} != null">
+		<a href="/issue" class="cart_name fl">发布闲置</a>
+	</div>
+</div>
+
+<div class="navbar_con">
+	<div class="navbar clearfix hc_lnav">
+		<div class="allbtn2 subnav_con fl" >
+			<h2><a href="#"><strong>&nbsp;</strong>全部商品分类<i>&nbsp;</i></a></h2>
+			<ul style="width:190px" class="jspop box">
+				<li class="a1" th:each="item1:${model.categoryList}">
+					<div class="tx"><a th:text="${item1.name}" th:href="@{'/list?categoryId='+${item1.id}+'&pageNum=0&pageSize=15&order=0'}"><i>&nbsp;</i>闲置数码</a> </div>
+					<dl>
+						<dt>推荐</dt>
+						<dd >
+							<a th:each="item2:${item1.categoryListVoList}" th:text="${item2.name}" th:href="@{'/list?categoryId='+${item2.id}+'&pageNum=0&pageSize=15&order=0'}">西湖井</a>
+						</dd>
+					</dl>
+					<div class="pop">
+						<dl>
+							<dl th:each="item4:${item1.categoryListVoList}">
+								<dt th:text="${item4.name}">绿茶</dt>
+								<dd>
+									<a class="ui-link" th:each="item5:${item4.categoryListVoList}" th:text="${item5.name}"
+									   th:href="@{'/list?categoryId='+${item5.id}+'&pageNum=0&pageSize=15&order=0'}">西湖龙井</a>
+								</dd>
+							</dl>
+						</dl>
+						<div class="clr"></div>
+					</div>
+				</li>
+
+
+			</ul>
+		</div>
+		<ul class="navlist fl">
+			<li><a href="/">首页</a></li>
+			<li class="interval">|</li>
+			<li><a href="/list?categoryId=6&pageNum=0&pageSize=15&order=0">手机</a></li>
+			<li class="interval">|</li>
+			<li><a href="/list?categoryId=8&pageNum=0&pageSize=15&order=0">电脑</a></li>
+		</ul>
+	</div>
+</div>
+	<div class="breadcrumb">
+		<a href="#">全部分类</a>
+		<span>></span>
+		<a href="#" >搜索</a>
+	</div>
+
+	<div class="main_wrap clearfix">
+		<div class="l_wrap fl clearfix">
+			<div class="new_goods">
+				<h3>新品推荐</h3>
+				<ul>
+					<li>
+						<a href="#"><img src="images/goods/goods001.jpg"></a>
+						<h4><a href="#">iPhone7&8手机壳4.7寸</a></h4>
+						<div class="prize">￥3.90</div>
+					</li>
+					<li>
+						<a href="#"><img src="images/goods/goods002.jpg"></a>
+						<h4><a href="#">[转卖]7耳机转接头</a></h4>
+						<div class="prize">￥20</div>
+					</li>
+				</ul>
+			</div>
+		</div>
+
+		<div class="r_wrap fr clearfix">
+			<div class="sort_bar">
+				<a  th:href="@{'/search?word='+${word}+'&pageNum=0&pageSize=15&order=0'}"
+				th:class="${order == 0} ? 'active' : ''">默认</a>
+				<a th:href="@{'/search?word='+${word}+'&pageNum=0&pageSize=15&order=3'}"
+				   th:class="${order == 3} ? 'active' : ''">价格</a>
+				<a  th:href="@{'/search?word='+${word}+'&pageNum=0&pageSize=15&order=4'}"
+					th:class="${order == 4} ? 'active' : ''">人气</a>
+			</div>
+
+			<ul class="goods_type_list clearfix">
+				<li th:each="item:${page.content}">
+					<a th:href="@{'/detail?productId='+${item.id}}"><img th:attr="src=${item.mainImage}"></a>
+					<h4><a th:href="@{'/detail?productId='+${item.id}}" th:text="${item.name}"></a></h4>
+					<div class="operate">
+						<span class="prize" th:text="￥+${item.price}">￥16.80</span>
+						<a  th:tag="${item.id}" class="add_goods" title="收藏商品"></a>
+					</div>
+				</li>
+			</ul>
+
+			<div class="pagenation">
+				<a th:href="@{'/search?word='+${word}+'&pageNum='+${page.number==0 ? 0 : page.number-1}+'&pageSize=15&order='+${order}}"><上一页</a>
+				<a href="#"  th:text="${page.number+1}" class="active">1</a>
+				<a th:href="@{'/search?word='+${word}+'&pageNum='+${page.number==page.totalPages-1 ? page.number : page.number+1}+'&pageSize=15&order='+${order}}">下一页></a>
+			</div>
+		</div>
+	</div>
+
+<div id="stantard-dialogBox"></div>
+
+	<div class="footer">
+		<div class="foot_link">
+			<a href="#">关于我们</a>
+			<span>|</span>
+			<a href="#">联系我们</a>
+			<span>|</span>
+			<a href="#">招聘人才</a>
+			<span>|</span>
+			<a href="#">友情链接</a>		
+		</div>
+		<p>CopyRight © 2018 校内闲鱼信息技术有限公司 All Rights Reserved</p>
+		<p>电话：010-****888    京ICP备*******8号</p>
+	</div>
+
+<script type="text/javascript" src="scripts/jquery.min.js"></script>
+<script src="js/jquery.dialogBox.js"></script>
+<script type="text/javascript">
+	$(function () {
+		$('.add_goods').click(function () {
+            var productId = $(this).attr("tag");;
+            $.ajax({
+                url:'/collect/save',
+                type:'POST', //GET
+                async:true,    //或false,是否异步
+                data:{
+                    productId:productId
+                },
+                timeout:5000,    //超时时间
+                dataType:'json',    //返回的数据格式：json/xml/html/script/jsonp/text
+                success:function(data,textStatus,jqXHR){
+                    if (data.status==0){
+                        $('#stantard-dialogBox').dialogBox({
+                            title: '校内闲鱼',
+                            hasClose: true,
+                            content: '收藏成功'
+                        });
+                    } else{
+                        $('#stantard-dialogBox').dialogBox({
+                            title: '校内闲鱼',
+                            hasClose: true,
+                            content: data.msg
+                        });
+                    }
+                },
+            })
+        })
+    })
+
+</script>
+<script type="text/javascript">
+    $(function () {
+        $('#btn_search').click(function () {
+            var word = $('#search_content').val();
+            window.location.href="/search?word="+word+"&order=0&pageNum=0&pageSize=15";
+        })
+    })
+
+</script>
+</body>
+</html>

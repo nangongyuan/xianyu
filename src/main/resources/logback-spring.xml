@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <!--输出组件-->
+    <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
+        <!--输出格式-->
+        <encoder>
+            <pattern>[%d{HH:mm:ss.SSS}][%p][%c{40}][%t] %m%n</pattern>
+        </encoder>
+        <!--过滤器 输出debug及以上级别-->
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>DEBUG</level>
+        </filter>
+    </appender>
+    <!--输出组件-->
+    <appender name="info" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <!--当前的日志文件路径及文件名-->
+        <File>G:\Java Web Demo\xianyu\log\info\info.%d.log</File>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!--每天的日志保存文件路径及文件名-->
+            <fileNamePattern>G:\Java Web Demo\xianyu\log\info\info.log.%d{yyyy-MM-dd}.gz</fileNamePattern>
+            <!--最多保存10天-->
+            <maxHistory>10</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <pattern>[%d{HH:mm:ss.SSS}][%p][%c{40}][%t] %m%n</pattern>
+        </encoder>
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>INFO</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+    </appender>
+
+    <appender name="error" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <File>G:\Java Web Demo\xianyu\log\error\error.%d.log</File>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>G:\Java Web Demo\xianyu\log\error\error.log.%d{yyyy-MM-dd}.gz</fileNamePattern>
+            <maxHistory>10</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <pattern>[%d{HH:mm:ss.SSS}][%p][%c{40}][%t] %m%n</pattern>
+        </encoder>
+        <!--只输出error级别的日志-->
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>ERROR</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+    </appender>
+
+
+
+
+    <!--将该包下所有的info级别及以上日志打印-->
+    <logger name="com.yuan.xianyu" level="DEBUG" >
+        <appender-ref ref="info" />
+        <appender-ref ref="error"/>
+    </logger>
+
+
+
+    <root level="DEBUG">
+        <appender-ref ref="console"/>
+    </root>
+
+</configuration>

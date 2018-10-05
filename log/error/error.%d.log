@@ -1,0 +1,24 @@
+[00:25:43.586][ERROR][com.yuan.xianyu.service.WebSocket][http-nio-8080-exec-8] 【websocket消息】连接出错或未关闭socket：null
+[00:25:49.755][ERROR][com.yuan.xianyu.service.WebSocket][http-nio-8080-exec-4] 【websocket消息】连接出错或未关闭socket：null
+[00:25:51.971][ERROR][com.yuan.xianyu.service.WebSocket][http-nio-8080-exec-2] 【websocket消息】连接出错或未关闭socket：null
+[00:27:37.045][ERROR][com.yuan.xianyu.service.WebSocket][http-nio-8080-exec-10] 【websocket消息】连接出错或未关闭socket：null
+[00:28:36.914][ERROR][com.yuan.xianyu.service.WebSocket][http-nio-8080-exec-5] 【websocket消息】连接出错或未关闭socket：null
+[00:28:38.760][ERROR][com.yuan.xianyu.service.WebSocket][http-nio-8080-exec-4] 【websocket消息】连接出错或未关闭socket：null
+[00:29:26.764][ERROR][com.yuan.xianyu.service.WebSocket][http-nio-8080-exec-5] 【websocket消息】连接出错或未关闭socket：null
+[00:29:42.625][ERROR][com.yuan.xianyu.service.WebSocket][http-nio-8080-exec-5] 【websocket消息】连接出错或未关闭socket：null
+[00:31:31.666][ERROR][com.yuan.xianyu.service.WebSocket][http-nio-8080-exec-8] 【websocket消息】连接出错或未关闭socket：null
+[00:31:56.453][ERROR][com.yuan.xianyu.service.WebSocket][http-nio-8080-exec-5] 【websocket消息】连接出错或未关闭socket：null
+[00:31:58.275][ERROR][com.yuan.xianyu.service.WebSocket][http-nio-8080-exec-4] 【websocket消息】连接出错或未关闭socket：null
+[00:34:16.176][ERROR][com.yuan.xianyu.service.WebSocket][http-nio-8080-exec-4] 【websocket消息】连接出错或未关闭socket：null
+[00:34:16.182][ERROR][com.yuan.xianyu.service.WebSocket][http-nio-8080-exec-4] 【websocket消息】连接出错或未关闭socket：你的主机中的软件中止了一个已建立的连接。
+[00:34:16.917][ERROR][com.yuan.xianyu.service.WebSocket][http-nio-8080-exec-1] 【websocket消息】连接出错或未关闭socket：null
+[00:34:19.419][ERROR][com.yuan.xianyu.service.WebSocket][http-nio-8080-exec-9] 【websocket消息】连接出错或未关闭socket：null
+[00:34:25.799][ERROR][com.yuan.xianyu.service.WebSocket][http-nio-8080-exec-10] 【websocket消息】连接出错或未关闭socket：null
+[00:39:54.310][ERROR][com.yuan.xianyu.service.WebSocket][http-nio-8080-exec-7] 【websocket消息】连接出错或未关闭socket：null
+[00:41:39.205][ERROR][com.yuan.xianyu.service.WebSocket][http-nio-8080-exec-10] 【websocket消息】连接出错或未关闭socket：could not execute statement; SQL [n/a]; nested exception is org.hibernate.exception.SQLGrammarException: could not execute statement
+[00:41:39.205][ERROR][com.yuan.xianyu.service.WebSocket][http-nio-8080-exec-2] 【websocket消息】连接出错或未关闭socket：could not execute statement; SQL [n/a]; nested exception is org.hibernate.exception.SQLGrammarException: could not execute statement
+[00:41:39.210][ERROR][com.yuan.xianyu.service.WebSocket][http-nio-8080-exec-2] 【websocket消息】连接出错或未关闭socket：你的主机中的软件中止了一个已建立的连接。
+[00:42:30.849][ERROR][com.yuan.xianyu.service.WebSocket][http-nio-8080-exec-7] 【websocket消息】连接出错或未关闭socket：could not execute statement; SQL [n/a]; nested exception is org.hibernate.exception.SQLGrammarException: could not execute statement
+[00:46:02.866][ERROR][com.yuan.xianyu.service.WebSocket][http-nio-8080-exec-7] 【websocket消息】连接出错或未关闭socket：could not execute statement; SQL [n/a]; nested exception is org.hibernate.exception.SQLGrammarException: could not execute statement
+[01:08:01.277][ERROR][com.yuan.xianyu.service.WebSocket][http-nio-8080-exec-1] 【websocket消息】连接出错或未关闭socket：Target object must not be null; nested exception is java.lang.IllegalArgumentException: Target object must not be null
+[01:10:57.018][ERROR][com.yuan.xianyu.service.WebSocket][http-nio-8080-exec-9] 【websocket消息】连接出错或未关闭socket：Target object must not be null; nested exception is java.lang.IllegalArgumentException: Target object must not be null
